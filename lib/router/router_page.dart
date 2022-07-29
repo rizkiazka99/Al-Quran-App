@@ -1,0 +1,1 @@
+const HomeScreenViewRoute = '/homescreen';
