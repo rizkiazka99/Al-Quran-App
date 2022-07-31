@@ -1,9 +1,14 @@
+import 'dart:async';
+
 import 'package:alquranapp/data/backend/repository.dart';
 import 'package:alquranapp/data/models/surah_response.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 class HomeController extends GetxController {
   final repository = Repository();
+  late Timer timer;
+  ScrollController scrollController = ScrollController();
 
   RxInt _currentTime = DateTime.now().hour.obs;
   RxString _greetingText = ''.obs;
@@ -26,8 +31,21 @@ class HomeController extends GetxController {
 
   @override
   void onInit() {
+    dynamicTimeGreet();
     getSurah();
     super.onInit();
+
+    scrollController.addListener(() {
+      if (scrollController.position.maxScrollExtent == scrollController.offset) {
+
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    timer.cancel();
+    super.dispose();
   }
 
   String timeCall() {
@@ -41,8 +59,15 @@ class HomeController extends GetxController {
     } if (currentTime >= 18) {
       greetingText = "Good Night  🌙";
     }
-
+    
     return greetingText;
+  }
+
+  void dynamicTimeGreet() {
+    Timer.periodic(Duration(hours: 1), (timer) { 
+      timeCall();
+      print('timeCall Function Initiated at ${DateTime.now()}');
+    });
   }
 
   Future<SurahResponse?> getSurah() async {

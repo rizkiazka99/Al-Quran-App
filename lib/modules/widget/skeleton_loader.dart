@@ -27,7 +27,9 @@ class SkeletonLoader extends StatelessWidget {
           decoration: BoxDecoration(
             color: Colors.grey[200],
             borderRadius: BorderRadius.circular(20),
-            boxShadow: [BoxShadow(color: backgroundColorPrimary)],
+            boxShadow: const [
+              BoxShadow(color: backgroundColorPrimary)
+            ],
           ),
         ),
       ),

@@ -15,7 +15,7 @@ class _TimeGreeterState extends State<TimeGreeter> {
 
   @override
   Widget build(BuildContext context) {
-    print(controller.currentTime);
+    print(DateTime.now().hour);
     return Obx(() => Text(
       controller.timeCall(),
       style: h3(),

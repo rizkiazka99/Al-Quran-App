@@ -16,6 +16,7 @@ class HomeScreen extends GetView<HomeController> {
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           child: SingleChildScrollView(
+            controller: controller.scrollController,
             physics: const BouncingScrollPhysics(),
             child: Container(
               padding: const EdgeInsets.all(16),
@@ -31,8 +32,13 @@ class HomeScreen extends GetView<HomeController> {
                     builder: (context) {
                       SurahResponse? surah = controller.surahData;
                       return Column(
-                        children: List.generate(surah!.data.length, (index) => Text(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: List.generate(surah!.data.length + 1, (index) => 
+                            index < surah.data.length ? Text(
                           surah.data[index].englishName
+                        ) : const Padding(
+                          padding: EdgeInsets.symmetric(vertical: 32),
+                          child: SkeletonLoader(),
                         )),
                       );
                     },
