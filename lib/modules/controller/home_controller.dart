@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:alquranapp/data/backend/repository.dart';
 import 'package:alquranapp/data/models/surah_response.dart';
 import 'package:flutter/cupertino.dart';
@@ -7,7 +6,6 @@ import 'package:get/get.dart';
 
 class HomeController extends GetxController {
   final repository = Repository();
-  late Timer timer;
   ScrollController scrollController = ScrollController();
 
   RxInt _currentTime = DateTime.now().hour.obs;
@@ -31,7 +29,6 @@ class HomeController extends GetxController {
 
   @override
   void onInit() {
-    dynamicTimeGreet();
     getSurah();
     super.onInit();
 
@@ -42,33 +39,29 @@ class HomeController extends GetxController {
     });
   }
 
-  @override
-  void dispose() {
-    timer.cancel();
-    super.dispose();
-  }
-
-  String timeCall() {
+  /*Stream<String> timeCall() async* {
     if (currentTime <= 11) {
-      greetingText = "Good Morning  ☀️";
+      await Future<void>.delayed(const Duration(seconds: 1));
+      greetingText = "Good Morning ☀️";
+      print('Good Morning, time: $currentTime');
     }
-    if (currentTime > 11) {
-      greetingText = "Good Afternoon  🌞";
-    } if (currentTime >= 16){
-      greetingText = "Good Evening  🌆";
-    } if (currentTime >= 18) {
-      greetingText = "Good Night  🌙";
+    if (currentTime >= 11) {
+      await Future<void>.delayed(const Duration(seconds: 1));
+      greetingText = "Good Afternoon 🌞";
+      print('Good Afternoon, time: $currentTime');
     }
-    
-    return greetingText;
-  }
-
-  void dynamicTimeGreet() {
-    Timer.periodic(Duration(hours: 1), (timer) { 
-      timeCall();
-      print('timeCall Function Initiated at ${DateTime.now()}');
-    });
-  }
+    if (currentTime >= 16) {
+      await Future<void>.delayed(const Duration(seconds: 1));
+      greetingText = "Good Evening 🌆";
+      print('Good Evening, time: $currentTime');
+    }
+    if (currentTime >= 18) {
+      await Future<void>.delayed(const Duration(seconds: 1));
+      greetingText = "Good Night 🌙";
+      print('Good Night, time: $currentTime');
+    }
+    yield greetingText;
+  }*/
 
   Future<SurahResponse?> getSurah() async {
     surahLoading = true;
