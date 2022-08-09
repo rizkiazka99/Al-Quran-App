@@ -3,11 +3,12 @@ import 'package:get/get_connect/http/src/status/http_status.dart';
 
 class ApiProvider {
   Dio dio = Dio();
-  String baseUrl = 'http://api.alquran.cloud/v1/';
+  String oldBaseUrl = 'http://api.alquran.cloud/v1/';
+  String newBaseUrl = 'https://equran.id/api/';
 
   getResponse(statusCode, message, data) {
     return {
-      'code': statusCode,
+      'status_code': statusCode,
       'status': message,
       'data': data
     };
@@ -53,7 +54,7 @@ class ApiProvider {
   Future dioGet(url, {query}) async {
     try {
       final response = await dio.get(
-        baseUrl + url,
+        newBaseUrl + url,
         queryParameters: query == null ? null : Map.from(query),
         options: Options(
           headers: {
@@ -72,10 +73,15 @@ class ApiProvider {
         )
       );
       
-      return getResponse(
+      /*return getResponse(
         response.data['code'], 
         response.data['status'], 
         response.data['data']
+      );*/
+      return getResponse(
+        response.statusCode, 
+        "Request Successful", 
+        response.data
       );
     } catch (e) {
       return handleError(e);
@@ -83,6 +89,10 @@ class ApiProvider {
   }
 
   Future getSurah() async {
-    return await dioGet('surah');
+    return await dioGet('surat');
+  }
+
+  Future getSurahContent(String surahNumber) async {
+    return await dioGet('surat/$surahNumber');
   }
 }

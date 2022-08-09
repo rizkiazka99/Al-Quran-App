@@ -1,13 +1,20 @@
+import 'package:alquranapp/core/utils/capitalize_first_letter.dart';
 import 'package:alquranapp/core/values/colors.dart';
 import 'package:alquranapp/core/values/fonts.dart';
-import 'package:alquranapp/data/models/surah_response.dart';
+//import 'package:alquranapp/data/models/surah_response.dart';
 import 'package:alquranapp/modules/controller/home_controller.dart';
+import 'package:alquranapp/modules/controller/surah_content_controller.dart';
+import 'package:alquranapp/modules/widget/content_divider.dart';
 import 'package:alquranapp/modules/widget/skeleton_loader.dart';
+import 'package:alquranapp/router/router_page.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 
+import '../../data/models/new_api/surah_response.dart';
+
 class HomeScreen extends GetView<HomeController> {
   HomeController controller = Get.find<HomeController>();
+  SurahContentController surahContentController = Get.put(SurahContentController());
 
   @override
   Widget build(BuildContext context) {
@@ -67,70 +74,75 @@ class HomeScreen extends GetView<HomeController> {
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: List.generate(surah!.data.length, (index) => 
-                            Container(
-                              padding: const EdgeInsets.all(8),
-                              margin: const EdgeInsets.only(bottom: 8),
-                              width: MediaQuery.of(context).size.width,
-                              height: MediaQuery.of(context).size.height / 9,
-                              child: Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      Expanded(
-                                        flex: 1,
-                                        child: Text(
-                                          surah.data[index].number.toString(),
-                                          style: h5(),
+                            InkWell(
+                              onTap: () {
+                                surahContentController.currentSurahNumber = 
+                                    surah.data[index].nomor.toString();
+                                surahContentController.getSurahContent();
+                                Get.toNamed(SurahContentViewRoute);
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.all(8),
+                                margin: const EdgeInsets.only(bottom: 8),
+                                width: MediaQuery.of(context).size.width,
+                                height: MediaQuery.of(context).size.height / 9,
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Expanded(
+                                          flex: 1,
+                                          child: Text(
+                                            surah.data[index].nomor.toString(),
+                                            style: h5(),
+                                          ),
                                         ),
-                                      ),
-                                      Expanded(
-                                        flex: 3,
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              surah.data[index].englishName,
-                                              style: h5(),
-                                            ),
-                                            const SizedBox(height: 12),
-                                            Row(
-                                              children: [
-                                                Expanded(
-                                                  flex: 3,
-                                                  child: Text(
-                                                    surah.data[index].englishNameTranslation,
-                                                    style: h6(),
-                                                    maxLines: 1,
-                                                    overflow: TextOverflow.ellipsis,
+                                        Expanded(
+                                          flex: 3,
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                surah.data[index].namaLatin,
+                                                style: h5(),
+                                              ),
+                                              const SizedBox(height: 12),
+                                              Row(
+                                                children: [
+                                                  Expanded(
+                                                    flex: 3,
+                                                    child: Text(
+                                                      surah.data[index].arti,
+                                                      style: h6(),
+                                                      maxLines: 1,
+                                                      overflow: TextOverflow.ellipsis,
+                                                    ),
                                                   ),
-                                                ),
-                                                Expanded(
-                                                  flex: 2,
-                                                  child: Text(
-                                                    surah.data[index].revelationType,
-                                                    style: h6(),
-                                                  ),
-                                                )
-                                              ],
-                                            )                                          ],
+                                                  Expanded(
+                                                    flex: 2,
+                                                    child: Text(
+                                                      surah.data[index].tempatTurun.capitalizeFirstLetter(),
+                                                      style: h6(),
+                                                    ),
+                                                  )
+                                                ],
+                                              )                                          
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                      Expanded(
-                                        flex: 1,
-                                        child: Text(
-                                          surah.data[index].name.substring(7),
-                                          style: h5()
+                                        Expanded(
+                                          flex: 1,
+                                          child: Text(
+                                            surah.data[index].nama,
+                                            style: h5()
+                                          )
                                         )
-                                      )
-                                    ],
-                                  ),
-                                  const SizedBox(height: 18),
-                                  Container(
-                                    color: dividerColorPrimary,
-                                    height: 2,
-                                    width: MediaQuery.of(context).size.width
-                                  )
-                                ],
+                                      ],
+                                    ),
+                                    const SizedBox(height: 18),
+                                    const ContentDivider()
+                                  ],
+                                ),
                               ),
                             )
                           ),

@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'package:alquranapp/data/backend/repository.dart';
-import 'package:alquranapp/data/models/surah_response.dart';
+//import 'package:alquranapp/data/models/surah_response.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+
+import '../../data/models/new_api/surah_response.dart';
 
 class HomeController extends GetxController {
   final repository = Repository();
@@ -31,37 +33,7 @@ class HomeController extends GetxController {
   void onInit() {
     getSurah();
     super.onInit();
-
-    scrollController.addListener(() {
-      if (scrollController.position.maxScrollExtent == scrollController.offset) {
-
-      }
-    });
   }
-
-  /*Stream<String> timeCall() async* {
-    if (currentTime <= 11) {
-      await Future<void>.delayed(const Duration(seconds: 1));
-      greetingText = "Good Morning ☀️";
-      print('Good Morning, time: $currentTime');
-    }
-    if (currentTime >= 11) {
-      await Future<void>.delayed(const Duration(seconds: 1));
-      greetingText = "Good Afternoon 🌞";
-      print('Good Afternoon, time: $currentTime');
-    }
-    if (currentTime >= 16) {
-      await Future<void>.delayed(const Duration(seconds: 1));
-      greetingText = "Good Evening 🌆";
-      print('Good Evening, time: $currentTime');
-    }
-    if (currentTime >= 18) {
-      await Future<void>.delayed(const Duration(seconds: 1));
-      greetingText = "Good Night 🌙";
-      print('Good Night, time: $currentTime');
-    }
-    yield greetingText;
-  }*/
 
   Future<SurahResponse?> getSurah() async {
     surahLoading = true;
