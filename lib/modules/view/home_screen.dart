@@ -77,7 +77,7 @@ class HomeScreen extends GetView<HomeController> {
                             InkWell(
                               onTap: () {
                                 surahContentController.currentSurahNumber = 
-                                    surah.data[index].nomor.toString();
+                                    surah.data[index].nomor;
                                 surahContentController.getSurahContent();
                                 Get.toNamed(SurahContentViewRoute);
                               },

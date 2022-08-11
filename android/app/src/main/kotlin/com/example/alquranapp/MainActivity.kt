@@ -5,7 +5,7 @@ import io.flutter.embedding.engine.FlutterShellArgs
 
 class MainActivity: FlutterActivity() {
     override fun getFlutterShellArgs(): FlutterShellArgs {
-        Log.d("Main Activity", "getFlutterShellArgs: false")
+        //Log.d("Main Activity", "getFlutterShellArgs: false")
         return FlutterShellArgs(arrayOf("--enable-skparagraph=false"))
     }
 }
