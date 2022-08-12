@@ -1,11 +1,13 @@
 import 'package:alquranapp/data/backend/repository.dart';
 import 'package:alquranapp/data/models/new_api/surah_content_response.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 class SurahContentController extends GetxController {
   final repository = Repository();
   final audioPlayer = AudioPlayer();
+  ScrollController scrollController = ScrollController();
 
   RxInt _currentSurahNumber = 1.obs;
   RxBool _surahContentLoading = false.obs;
@@ -53,6 +55,7 @@ class SurahContentController extends GetxController {
   @override
   void dispose() {
     audioPlayer.dispose();
+    scrollController.dispose();
     super.dispose();
   }
 
