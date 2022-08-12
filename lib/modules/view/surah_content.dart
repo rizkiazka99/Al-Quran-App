@@ -71,94 +71,81 @@ class SurahContentScreen extends GetView<SurahContentController> {
         ),
       ),
       bottomNavigationBar: Container(
+        height: MediaQuery.of(context).size.height / 8,
         padding: const EdgeInsets.all(8),
-        decoration: const BoxDecoration(
+        margin: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(18),
           color: Colors.white
         ),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Obx(() => InkWell(
-              onTap: () {
-                if (controller.currentSurahNumber > 1) {
-                  controller.currentSurahNumber--;
-                  controller.audioPlayer.stop();
-                  controller.audioPlayer.seek(const Duration(seconds: 0));
-                  controller.getSurahContent();
-                } 
-              },
-              child: Icon(
-                Icons.arrow_back,
-                color: controller.currentSurahNumber > 1 ?Colors.black : contextGrey,
-              ),
-            )),
-            Container(
-              height: MediaQuery.of(context).size.height / 5,
-              width: MediaQuery.of(context).size.width / 2,
-              child: Column(
+            Expanded(
+              flex: 1,
+              child: Obx(() => InkWell(
+                onTap: () {
+                  if (controller.currentSurahNumber > 1) {
+                    controller.currentSurahNumber--;
+                    controller.audioPlayer.stop();
+                    controller.audioPlayer.seek(const Duration(seconds: 0));
+                    controller.getSurahContent();
+                  } 
+                },
+                child: Icon(
+                  Icons.arrow_back,
+                  color: controller.currentSurahNumber > 1 ?Colors.black : contextGrey,
+                ),
+              )),
+            ),
+            Expanded(
+              flex: 3,
+              child: Row(
                 children: [
                   Obx(() => Slider(
                     min: 0,
                     max: controller.duration.inSeconds.toDouble(),
-                    value: controller.position.inSeconds.toDouble(), 
+                    value: controller.position.inSeconds.toDouble(),
                     onChanged: (value) async {
                       final position = Duration(seconds: value.toInt());
                       await controller.audioPlayer.seek(position);
-
                       await controller.audioPlayer.resume();
                     }
                   )),
-                  const SizedBox(height: 12),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Obx(() => Text(
-                        controller.formatAudioTime(controller.position)
-                      )),
-                      Obx(() => Text(
-                        controller.formatAudioTime(
-                          controller.duration - controller.position
-                        )
-                      ))
-                    ],
-                  ),
-                  const SizedBox(height: 12),
-                  Obx(() => CircleAvatar(
-                    radius: 35,
-                    child: InkWell(
-                      onTap: () async {
-                        print('isPlaying: ${controller.isPlaying}');
-                        if(controller.isPlaying) {
-                          await controller.audioPlayer.pause();
-                        } else {
-                          await controller.audioPlayer.play(
-                            controller.surahContentData!.data.audio
-                          );
-                        }
-                      },
-                      child: Icon(
-                        controller.isPlaying ? Icons.pause : Icons.play_arrow,
-                        size: 30,
-                      ),
+                  Obx(() => InkWell(
+                    onTap: () async {
+                      if (controller.isPlaying) {
+                        await controller.audioPlayer.pause();
+                      } else {
+                        await controller.audioPlayer.play(
+                          controller.surahContentData!.data.audio
+                        );
+                      }
+                    },
+                    child: Icon(
+                      controller.isPlaying ? Icons.pause : Icons.play_arrow,
+                      size: 18,
                     ),
-                  ))
+                  )),
                 ],
               ),
             ),
-            Obx(() => InkWell(
-              onTap: () {
-                if (controller.currentSurahNumber < 114) {
-                  controller.currentSurahNumber++;
-                  controller.audioPlayer.stop();
-                  controller.audioPlayer.seek(const Duration(seconds: 0));
-                  controller.getSurahContent();
-                } 
-              },
-              child: Icon(
-                Icons.arrow_forward,
-                color: controller.currentSurahNumber < 114 ?Colors.black : contextGrey,
-              ),
-            ))
+            Expanded(
+              flex: 1,
+              child: Obx(() => InkWell(
+                onTap: () {
+                  if (controller.currentSurahNumber < 114) {
+                    controller.currentSurahNumber++;
+                    controller.audioPlayer.stop();
+                    controller.audioPlayer.seek(const Duration(seconds: 0));
+                    controller.getSurahContent();
+                  } 
+                },
+                child: Icon(
+                  Icons.arrow_forward,
+                  color: controller.currentSurahNumber < 114 ?Colors.black : contextGrey,
+                ),
+              )),
+            )
           ],
         ),
       ),
