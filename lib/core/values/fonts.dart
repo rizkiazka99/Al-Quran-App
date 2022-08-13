@@ -19,76 +19,77 @@ const textWhite = TextStyle(color: Colors.white);
 const textGray = TextStyle(color: Colors.grey);
 
 //headline
-h1({color: textBlack}) {
-  return TextStyle(color: color, fontWeight: FontWeight.bold, fontSize: 40);
+h1({color: textBlack, fontFamily}) {
+  return TextStyle(color: color, fontWeight: FontWeight.bold, fontSize: 40, fontFamily: fontFamily);
 }
 
-h2({color: textBlack}) {
-  return TextStyle(color: color, fontWeight: FontWeight.bold, fontSize: 28);
+h2({color: textBlack, fontFamily}) {
+  return TextStyle(color: color, fontWeight: FontWeight.bold, fontSize: 28, fontFamily: fontFamily);
 }
 
-h3({color: textBlack}) {
-  return TextStyle(color: color, fontWeight: FontWeight.bold, fontSize: 24);
+h3({color: textBlack, fontFamily}) {
+  return TextStyle(color: color, fontWeight: FontWeight.bold, fontSize: 24, fontFamily: fontFamily);
 }
 
-h4({color: textBlack}) {
-  return TextStyle(color: color, fontWeight: FontWeight.bold, fontSize: 20);
+h4({color: textBlack, fontFamily}) {
+  return TextStyle(color: color, fontWeight: FontWeight.bold, fontSize: 20, fontFamily: fontFamily);
 }
 
-h4_5({color: textBlack}) {
-  return TextStyle(color: color, fontWeight: FontWeight.bold, fontSize: 18);
+h4_5({color: textBlack, fontFamily}) {
+  return TextStyle(color: color, fontWeight: FontWeight.bold, fontSize: 18, fontFamily: fontFamily);
 }
 
-h5({color: textBlack, fontWeight: FontWeight.bold}) {
-  return TextStyle(color: color, fontWeight: fontWeight, fontSize: 16);
+h5({color: textBlack, fontWeight: FontWeight.bold, fontFamily}) {
+  return TextStyle(color: color, fontWeight: fontWeight, fontSize: 16, fontFamily: fontFamily);
 }
 
-h6({color: textBlack, fontWeight: FontWeight.bold}) {
-  return TextStyle(color: color, fontWeight: fontWeight, fontSize: 14);
+h6({color: textBlack, fontWeight: FontWeight.bold, fontFamily}) {
+  return TextStyle(color: color, fontWeight: fontWeight, fontSize: 14, fontFamily: fontFamily);
 }
 
-h7({color: textBlack, fontWeight: FontWeight.bold}) {
-  return TextStyle(color: color, fontWeight: fontWeight, fontSize: 12);
+h7({color: textBlack, fontWeight: FontWeight.bold, fontFamily}) {
+  return TextStyle(color: color, fontWeight: fontWeight, fontSize: 12, fontFamily: fontFamily);
 }
 
 //body
-bodyLg({color: textBlack}) {
-  return TextStyle(color: color, fontSize: 16, letterSpacing: 2);
+bodyLg({color: textBlack, fontFamily}) {
+  return TextStyle(color: color, fontSize: 16, letterSpacing: 2, fontFamily: fontFamily);
 }
 
-bodyMd({color: textGrey, fontWeight: FontWeight.normal}) {
-  return TextStyle(color: color, fontSize: 14, fontWeight: fontWeight);
+bodyMd({color: textGrey, fontWeight: FontWeight.normal, fontFamily}) {
+  return TextStyle(color: color, fontSize: 14, fontWeight: fontWeight, fontFamily: fontFamily);
 }
 
-bodySm({color: textBlack, fontWeight: FontWeight.normal}) {
-  return TextStyle(color: color, fontSize: 12, fontWeight: fontWeight);
+bodySm({color: textBlack, fontWeight: FontWeight.normal, fontFamily}) {
+  return TextStyle(color: color, fontSize: 12, fontWeight: fontWeight, fontFamily: fontFamily);
 }
 
-bodyXs({color: textBlack}) {
-  return TextStyle(color: color, fontSize: 10);
+bodyXs({color: textBlack, fontFamily}) {
+  return TextStyle(color: color, fontSize: 10, fontFamily: fontFamily);
 }
 
-bodyXsGrey({color: textGrey, fontSize}) {
-  return TextStyle(color: color, fontSize: fontSize);
+bodyXsGrey({color: textGrey, fontSize, fontFamily}) {
+  return TextStyle(color: color, fontSize: fontSize, fontFamily: fontFamily);
 }
+
 //button
-buttonLg({color: textBlack}) {
-  return TextStyle(color: color, fontWeight: FontWeight.bold, fontSize: 16);
+buttonLg({color: textBlack, fontFamily}) {
+  return TextStyle(color: color, fontWeight: FontWeight.bold, fontSize: 16, fontFamily: fontFamily);
 }
 
-buttonMd({color: textBlack, fontWeight: FontWeight.bold}) {
-  return TextStyle(color: color, fontWeight: fontWeight, fontSize: 14);
+buttonMd({color: textBlack, fontWeight: FontWeight.bold, fontFamily}) {
+  return TextStyle(color: color, fontWeight: fontWeight, fontSize: 14, fontFamily: fontFamily);
 }
 
-buttonSm({color: textBlack}) {
-  return TextStyle(color: color, fontWeight: FontWeight.bold, fontSize: 12);
+buttonSm({color: textBlack, fontFamily}) {
+  return TextStyle(color: color, fontWeight: FontWeight.bold, fontSize: 12, fontFamily: fontFamily);
 }
 
 //text button
-txtButtonMd({color: textOrange}) {
-  return TextStyle(color: color, fontWeight: FontWeight.bold, fontSize: 14);
+txtButtonMd({color: textOrange, fontFamily}) {
+  return TextStyle(color: color, fontWeight: FontWeight.bold, fontSize: 14, fontFamily: fontFamily);
 }
 
-txtButtonSm({color: textOrange}) {
-  return TextStyle(color: color, fontWeight: FontWeight.bold, fontSize: 12);
+txtButtonSm({color: textOrange, fontFamily}) {
+  return TextStyle(color: color, fontWeight: FontWeight.bold, fontSize: 12, fontFamily: fontFamily);
 }

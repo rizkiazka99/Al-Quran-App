@@ -7,6 +7,7 @@ import 'package:alquranapp/modules/widget/scroll_to_hide.dart';
 import 'package:alquranapp/modules/widget/skeleton_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class SurahContentScreen extends GetView<SurahContentController> {
   SurahContentController controller = Get.find<SurahContentController>();
@@ -51,7 +52,9 @@ class SurahContentScreen extends GetView<SurahContentController> {
                             const SizedBox(height: 12),
                             Text(
                               surahContent.data.ayat[index].idn,
-                              style: h6(fontWeight: FontWeight.normal),
+                              style: GoogleFonts.lato(
+                                fontSize: 14
+                              ),
                               textAlign: TextAlign.justify,
                             ),
                             const SizedBox(height: 12),
@@ -67,7 +70,7 @@ class SurahContentScreen extends GetView<SurahContentController> {
           )
         ),
       ),
-      bottomNavigationBar: ScrollToHideWidget(
+      bottomNavigationBar: ScrollToHide(
         scrollController: controller.scrollController,
         margin: const EdgeInsets.only(bottom: 24),
         height: MediaQuery.of(context).size.height / 8,

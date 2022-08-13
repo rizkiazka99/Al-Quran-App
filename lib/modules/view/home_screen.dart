@@ -9,6 +9,7 @@ import 'package:alquranapp/modules/widget/skeleton_loader.dart';
 import 'package:alquranapp/router/router_page.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../data/models/new_api/surah_response.dart';
 
@@ -94,7 +95,9 @@ class HomeScreen extends GetView<HomeController> {
                                           flex: 1,
                                           child: Text(
                                             surah.data[index].nomor.toString(),
-                                            style: h5(),
+                                            style: GoogleFonts.lato(
+                                              fontSize: 16
+                                            )
                                           ),
                                         ),
                                         Expanded(
@@ -104,37 +107,30 @@ class HomeScreen extends GetView<HomeController> {
                                             children: [
                                               Text(
                                                 surah.data[index].namaLatin,
-                                                style: h5(),
+                                                style: GoogleFonts.lato(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.bold
+                                                )
                                               ),
                                               const SizedBox(height: 12),
-                                              Row(
-                                                children: [
-                                                  Expanded(
-                                                    flex: 3,
-                                                    child: Text(
-                                                      surah.data[index].arti,
-                                                      style: h6(),
-                                                      maxLines: 1,
-                                                      overflow: TextOverflow.ellipsis,
-                                                    ),
-                                                  ),
-                                                  Expanded(
-                                                    flex: 2,
-                                                    child: Text(
-                                                      surah.data[index].tempatTurun.capitalizeFirstLetter(),
-                                                      style: h6(),
-                                                    ),
-                                                  )
-                                                ],
+                                              Text(
+                                                surah.data[index].tempatTurun.capitalizeFirstLetter(),
+                                                style: GoogleFonts.lato(
+                                                  fontSize: 14
+                                                )
                                               )                                          
                                             ],
                                           ),
                                         ),
                                         Expanded(
-                                          flex: 1,
+                                          flex: 2,
                                           child: Text(
                                             surah.data[index].nama,
-                                            style: h5()
+                                            style: GoogleFonts.lato(
+                                              fontSize: 25,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                            textAlign: TextAlign.right,
                                           )
                                         )
                                       ],
