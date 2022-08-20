@@ -7,12 +7,16 @@ import 'package:google_fonts/google_fonts.dart';
 
 class LoginController extends GetxController {
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+
   final emailFormKey = GlobalKey<FormState>();
   final passwordFormKey = GlobalKey<FormState>();
+
   var autoValidateEmail = AutovalidateMode.disabled;
   var autoValidatePassword = AutovalidateMode.disabled;
+  
   String errorMessage = '';
 
   RxBool _isNotVisible = true.obs;
@@ -42,35 +46,20 @@ class LoginController extends GetxController {
         autoValidateEmail = AutovalidateMode.always;
         autoValidatePassword = AutovalidateMode.always;
       }
-    } catch (error) {
-      print('Firebase Exception: $error');
-      switch (error) {
-        case "ERROR_EMAIL_ALREADY_IN_USE":
-        case "account-exists-with-different-credential":
-        case "email-already-in-use":
-          errorMessage = "E-mail ini sudah digunakan pengguna lain";
-          break;
-        case "ERROR_WRONG_PASSWORD":
+    } on FirebaseAuthException catch (error) {
+      switch (error.code) {
         case "wrong-password":
           errorMessage = "E-mail atau password salah.";
           break;
-        case "ERROR_USER_NOT_FOUND":
         case "user-not-found":
           errorMessage = "E-mail ini tidak terdaftar";
           break;
-        case "ERROR_USER_DISABLED":
         case "user-disabled":
           errorMessage = "Akun sudah dinonaktifkan";
           break;
-        case "ERROR_TOO_MANY_REQUESTS":
         case "operation-not-allowed":
           errorMessage = "Terlalu banyak request untuk masuk ke akun ini";
           break;
-        case "ERROR_OPERATION_NOT_ALLOWED":
-        case "operation-not-allowed":
-          errorMessage = "Masalah server, mohon coba beberapa saat lagi";
-          break;
-        case "ERROR_INVALID_EMAIL":
         case "invalid-email":
           errorMessage = "E-mail tidak valid";
           break;
@@ -78,7 +67,6 @@ class LoginController extends GetxController {
           errorMessage = "Login gagal, mohon coba lagi";
           break;
       }
-      print('Error: $errorMessage');
       return showDialog(
         context: context,
         builder: (context) {
