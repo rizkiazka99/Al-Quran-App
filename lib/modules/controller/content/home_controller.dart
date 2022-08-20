@@ -1,10 +1,8 @@
 import 'dart:async';
 import 'package:alquranapp/data/backend/repository.dart';
-//import 'package:alquranapp/data/models/surah_response.dart';
+import 'package:alquranapp/data/models/new_api/surah_response.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-
-import '../../data/models/new_api/surah_response.dart';
 
 class HomeController extends GetxController {
   final repository = Repository();

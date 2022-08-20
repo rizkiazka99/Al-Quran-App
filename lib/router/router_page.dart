@@ -1,2 +1,4 @@
-const HomeScreenViewRoute = '/homescreen';
-const SurahContentViewRoute = '/surahcontentviewroute';
+const HomeScreenViewRoute = '/homescreenview';
+const SurahContentViewRoute = '/surahcontentview';
+const LoginScreenViewRoute = '/loginscreenview';
+const RegisterScreenViewRoute = '/registerscreenview';

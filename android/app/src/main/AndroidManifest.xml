@@ -2,7 +2,7 @@
     package="com.example.alquranapp">
     <uses-permission android:name="android.permission.INTERNET"/>
     <application
-        android:label="alquranapp"
+        android:label="MyQuran"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

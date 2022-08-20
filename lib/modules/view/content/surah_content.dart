@@ -1,7 +1,7 @@
 import 'package:alquranapp/core/values/colors.dart';
 import 'package:alquranapp/core/values/fonts.dart';
 import 'package:alquranapp/data/models/new_api/surah_content_response.dart';
-import 'package:alquranapp/modules/controller/surah_content_controller.dart';
+import 'package:alquranapp/modules/controller/content/surah_content_controller.dart';
 import 'package:alquranapp/modules/widget/content_divider.dart';
 import 'package:alquranapp/modules/widget/scroll_to_hide.dart';
 import 'package:alquranapp/modules/widget/skeleton_loader.dart';
@@ -9,7 +9,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class SurahContentScreen extends GetView<SurahContentController> {
+class SurahContentScreen extends StatefulWidget {
+  const SurahContentScreen({Key? key}) : super(key: key);
+
+  @override
+  State<SurahContentScreen> createState() => _SurahContentScreenState();
+}
+
+class _SurahContentScreenState extends State<SurahContentScreen> {
   SurahContentController controller = Get.find<SurahContentController>();
 
   @override

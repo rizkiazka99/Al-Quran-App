@@ -1,4 +1,4 @@
-import 'package:alquranapp/modules/controller/home_controller.dart';
+import 'package:alquranapp/modules/controller/content/home_controller.dart';
 import 'package:get/get.dart';
 
 class HomeBinding extends Bindings {
