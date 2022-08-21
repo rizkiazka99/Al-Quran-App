@@ -29,138 +29,140 @@ class _LoginScreenState extends State<LoginScreen> {
       child: Scaffold(
         backgroundColor: Colors.transparent,
         body: SafeArea(
-          child: SizedBox(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
-            child: Column(
-              children: [
-                Container(
-                  margin: const EdgeInsets.all(32),
-                  child: Text(
-                    'MyQuran',
-                    style: GoogleFonts.iceland(
-                      fontSize: 75,
-                      fontWeight: FontWeight.bold
-                    ),
-                  ),
-                ),
-                Expanded(
-                  flex: 1,
-                  child: Container(
-                    height: MediaQuery.of(context).size.height / 8,
-                    width: MediaQuery.of(context).size.width,
-                    margin: const EdgeInsets.all(8),
-                    padding: const EdgeInsets.fromLTRB(16, 48, 16, 16),
-                    decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(32),
-                        topRight: Radius.circular(32)
+          child: SingleChildScrollView(
+            physics: const NeverScrollableScrollPhysics(),
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
+              child: Column(
+                children: [
+                  Container(
+                    margin: const EdgeInsets.all(32),
+                    child: Text(
+                      'MyQuran',
+                      style: GoogleFonts.iceland(
+                        fontSize: 75,
+                        fontWeight: FontWeight.bold
                       ),
-                      color: paleBlueLight,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.1),
-                          spreadRadius: 5,
-                          blurRadius: 7,
-                          offset: const Offset(0, 3)
-                        )
-                      ]
-                    ),
-                    child: Column(
-                      children: [
-                        AuthenticationForm(
-                          formKey: controller.emailFormKey, 
-                          autovalidateMode: controller.autoValidateEmail, 
-                          controller: controller.emailController,
-                          hintText: 'E-mail',
-                          obscureText: false,
-                          focusedColor: contextGreen,
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'E-mail tidak boleh kosong';
-                            } else if (!value.contains('@')) {
-                              return 'Format e-mail salah';
-                            } else if (!value.contains('.')) {
-                              return 'Format e-mail salah';
-                            }
-                          }
-                        ),
-                        const SizedBox(height: 8),
-                        Obx(() => AuthenticationForm(
-                          formKey: controller.passwordFormKey, 
-                          autovalidateMode: controller.autoValidatePassword, 
-                          controller: controller.passwordController,
-                          hintText: 'Password',
-                          obscureText: controller.isNotVisible, 
-                          focusedColor: contextGreen,
-                          suffixIcon: IconButton(
-                            onPressed: () {
-                              controller.showAndHidePassword();
-                            },
-                            icon: Icon(
-                              controller.isNotVisible == true ? Icons.visibility :
-                                  Icons.visibility_off,
-                              color: contextGrey,
-                            ),
-                          ),
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return "Password tidak boleh kosong";
-                            }
-                          },
-                        )),
-                        const SizedBox(height: 8),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            AuthenticationTextButton(
-                              onTap: () {}, 
-                              buttonText: 'Lupa Password?',
-                              buttonColor: contextGreen,
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 12),
-                        AuthenticationButton(
-                          onPressed: () {
-                            controller.login(context);
-                          }, 
-                          buttonText: 'Login'
-                        ),
-                        const SizedBox(height: 12),
-                        Text(
-                          'Belum punya akun?',
-                          style: GoogleFonts.lato(
-                            fontSize: 15
-                          ),
-                        ),
-                        const SizedBox(height: 8),
-                        AuthenticationButton(
-                          onPressed: () {
-                            Get.toNamed(RegisterScreenViewRoute);
-                          }, 
-                          buttonText: 'Register'
-                        ),
-                        const SizedBox(height: 12),
-                        Text(
-                          'Atau',
-                          style: GoogleFonts.lato(
-                            fontSize: 15
-                          ),
-                        ),
-                        const SizedBox(height: 8),
-                        AuthenticationTextButton(
-                          onTap: () {
-                            Get.toNamed(HomeScreenViewRoute);
-                          }, 
-                          buttonText: 'Masuk Tanpa Akun',
-                          buttonColor: contextGreen,
-                        )
-                      ],
                     ),
                   ),
-                ),
-              ],
+                  Expanded(
+                    flex: 1,
+                    child: Container(
+                      height: MediaQuery.of(context).size.height / 8,
+                      width: MediaQuery.of(context).size.width,
+                      padding: const EdgeInsets.fromLTRB(16, 48, 16, 16),
+                      decoration: BoxDecoration(
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(32),
+                          topRight: Radius.circular(32)
+                        ),
+                        color: paleBlueLight,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.1),
+                            spreadRadius: 5,
+                            blurRadius: 7,
+                            offset: const Offset(0, 3)
+                          )
+                        ]
+                      ),
+                      child: Column(
+                        children: [
+                          AuthenticationForm(
+                            formKey: controller.emailFormKey, 
+                            autovalidateMode: controller.autoValidateEmail, 
+                            controller: controller.emailController,
+                            hintText: 'E-mail',
+                            obscureText: false,
+                            focusedColor: contextGreen,
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'E-mail tidak boleh kosong';
+                              } else if (!value.contains('@')) {
+                                return 'Format e-mail salah';
+                              } else if (!value.contains('.')) {
+                                return 'Format e-mail salah';
+                              }
+                            }
+                          ),
+                          const SizedBox(height: 8),
+                          Obx(() => AuthenticationForm(
+                            formKey: controller.passwordFormKey, 
+                            autovalidateMode: controller.autoValidatePassword, 
+                            controller: controller.passwordController,
+                            hintText: 'Password',
+                            obscureText: controller.isNotVisible, 
+                            focusedColor: contextGreen,
+                            suffixIcon: IconButton(
+                              onPressed: () {
+                                controller.showAndHidePassword();
+                              },
+                              icon: Icon(
+                                controller.isNotVisible == true ? Icons.visibility :
+                                    Icons.visibility_off,
+                                color: contextGrey,
+                              ),
+                            ),
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return "Password tidak boleh kosong";
+                              }
+                            },
+                          )),
+                          const SizedBox(height: 8),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              AuthenticationTextButton(
+                                onTap: () {}, 
+                                buttonText: 'Lupa Password?',
+                                buttonColor: contextGreen,
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 12),
+                          AuthenticationButton(
+                            onPressed: () {
+                              controller.login(context);
+                            }, 
+                            buttonText: 'Login'
+                          ),
+                          const SizedBox(height: 12),
+                          Text(
+                            'Belum punya akun?',
+                            style: GoogleFonts.lato(
+                              fontSize: 15
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          AuthenticationButton(
+                            onPressed: () {
+                              Get.toNamed(RegisterScreenViewRoute);
+                            }, 
+                            buttonText: 'Register'
+                          ),
+                          const SizedBox(height: 12),
+                          Text(
+                            'Atau',
+                            style: GoogleFonts.lato(
+                              fontSize: 15
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          AuthenticationTextButton(
+                            onTap: () {
+                              Get.toNamed(HomeScreenViewRoute);
+                            }, 
+                            buttonText: 'Masuk Tanpa Akun',
+                            buttonColor: contextGreen,
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
