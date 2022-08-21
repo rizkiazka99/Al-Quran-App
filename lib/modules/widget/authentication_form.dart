@@ -11,6 +11,7 @@ class AuthenticationForm extends StatefulWidget {
   final bool obscureText;
   final String? Function(String?) validator;
   final Widget? suffixIcon;
+  final Color focusedColor;
 
   const AuthenticationForm({
     Key? key, 
@@ -20,7 +21,8 @@ class AuthenticationForm extends StatefulWidget {
     required this.hintText,
     required this.obscureText,
     required this.validator, 
-    this.suffixIcon
+    this.suffixIcon,
+    this.focusedColor = Colors.black
   }) : super(key: key);
 
   @override
@@ -43,15 +45,15 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
           hintStyle: GoogleFonts.lato(color: textGrey),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
-            borderSide: const BorderSide(
-              color: Colors.black, 
+            borderSide: BorderSide(
+              color: widget.focusedColor, 
               width: 2.0
             )
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
-            borderSide: const BorderSide(
-              color: Colors.black, width: 2.0
+            borderSide: BorderSide(
+              color: widget.focusedColor, width: 2.0
             )
           ),
           errorBorder: OutlineInputBorder(
