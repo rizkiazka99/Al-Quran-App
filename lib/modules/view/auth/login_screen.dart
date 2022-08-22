@@ -38,13 +38,11 @@ class _LoginScreenState extends State<LoginScreen> {
                 children: [
                   Container(
                     margin: const EdgeInsets.all(32),
-                    child: Text(
-                      'MyQuran',
-                      style: GoogleFonts.iceland(
-                        fontSize: 75,
-                        fontWeight: FontWeight.bold
-                      ),
-                    ),
+                    child: Image.asset(
+                      'assets/img/logo_horizontal.png',
+                      height: 50,
+                      width: 200
+                    )
                   ),
                   Expanded(
                     flex: 1,

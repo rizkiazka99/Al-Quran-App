@@ -27,12 +27,18 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
+        titleSpacing: 0,
         title: Obx(() => controller.enableSearchBar == false ?
-            const Text('Quran App') : SizedBox(
+            Image.asset(
+              'assets/img/logo_horizontal.png',
+              height: 40,
+              width: 200,
+            ) : SizedBox(
             height: 45,
             width: MediaQuery.of(context).size.width,
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 InkWell(
                   onTap: () {
@@ -103,7 +109,19 @@ class _HomeScreenState extends State<HomeScreen> {
               Icons.search,
               size: 25,
             ),
-          ) : const SizedBox.shrink())
+          ) : const SizedBox.shrink()),
+          const SizedBox(width: 12),
+          InkWell(
+            onTap: () async {
+              await controller.firebaseAuth.signOut().then((value) => 
+                Get.offAllNamed(LoginScreenViewRoute)
+              );
+            },
+            child: const Icon(
+              Icons.logout,
+              size: 25,
+            ),
+          )
         ],
       ),
       body: SafeArea(

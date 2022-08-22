@@ -58,11 +58,7 @@ class RegisterController extends GetxController {
         ).then((value) {
           User? updateUser = firebaseAuth.currentUser;
           updateUser!.updateDisplayName(nameController.text);
-          userSetup(nameController.text);
-          /*nameController.clear();
-          emailController.clear();
-          passwordController.clear();
-          confirmedPasswordController.clear();*/
+          userSetup(nameController.text, emailController.text);
           Get.offAllNamed(LoginScreenViewRoute);
         });
       } else if (!isNameValid) {

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:alquranapp/data/backend/repository.dart';
 import 'package:alquranapp/data/models/new_api/surah_response.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
@@ -8,6 +9,7 @@ class HomeController extends GetxController {
   final repository = Repository();
   ScrollController scrollController = ScrollController();
   TextEditingController searchController = TextEditingController();
+  FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
   RxInt _currentTime = DateTime.now().hour.obs;
   RxString _greetingText = ''.obs;

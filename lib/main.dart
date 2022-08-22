@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
-      initialRoute: LoginScreenViewRoute,
+      initialRoute: SplashScreenViewRoute,
       getPages: AppPages.pages,
     );
   }
