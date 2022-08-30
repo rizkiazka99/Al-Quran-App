@@ -5,6 +5,7 @@ import 'package:alquranapp/data/models/new_api/surah_response.dart';
 import 'package:alquranapp/modules/controller/content/home_controller.dart';
 import 'package:alquranapp/modules/controller/content/surah_content_controller.dart';
 import 'package:alquranapp/modules/widget/content_divider.dart';
+import 'package:alquranapp/modules/widget/search_bar.dart';
 import 'package:alquranapp/modules/widget/skeleton_loader.dart';
 import 'package:alquranapp/router/router_page.dart';
 import 'package:get/get.dart';
@@ -25,322 +26,293 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        titleSpacing: 0,
-        title: Obx(() => controller.enableSearchBar == false ?
-            Image.asset(
-              'assets/img/logo_horizontal.png',
-              height: 40,
-              width: 200,
-            ) : SizedBox(
-            height: 45,
-            width: MediaQuery.of(context).size.width,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                InkWell(
-                  onTap: () {
-                    controller.enableSearchBar = !controller.enableSearchBar;
-                    print('enableSearchBar: ${controller.enableSearchBar}');
-                  },
-                  child: const Icon(
-                    Icons.arrow_back,
-                    size: 25,
-                  ),
-                ),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width / 1.2,
-                  child: TextFormField(
-                    controller: controller.searchController,
-                    onChanged: (value) {
-                      controller.runFilter(value);
-                    },
-                    decoration: InputDecoration(
-                      hintText: 'Cari Surah',
-                      hintStyle: h6(color: Colors.white),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(
-                          color: Colors.white,
-                          width: 2
-                        ),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(
-                          color: Colors.white,
-                          width: 2
-                        )
-                      ),
-                      focusedErrorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(
-                          color: Colors.white,
-                          width: 2
-                        )
-                      ),
-                      suffixIcon:
-                        InkWell(
-                          onTap: () {
-                            controller.searchController.clear();
-                          },
-                          child: const Icon(
-                            Icons.close,
-                            size: 25,
-                            color: Colors.white
-                          ),
-                        )
-                      )
-                    ),
-                  )
-              ],
-            ),
-          )
-        ),
-        actions: [
-          Obx(() => controller.enableSearchBar == false ? InkWell(
-            onTap: () {
-              controller.enableSearchBar = !controller.enableSearchBar;
-              print('enableSearchBar: ${controller.enableSearchBar}');
-            },
-            child: const Icon(
-              Icons.search,
-              size: 25,
-            ),
-          ) : const SizedBox.shrink()),
-          const SizedBox(width: 12),
-          InkWell(
-            onTap: () async {
-              await controller.firebaseAuth.signOut().then((value) => 
-                Get.offAllNamed(LoginScreenViewRoute)
-              );
-            },
-            child: const Icon(
-              Icons.logout,
-              size: 25,
-            ),
-          )
-        ],
+    return Container(
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          colors: [contextBlue, contextGreen, contextBlueLight]
+        )
       ),
-      body: SafeArea(
-        child: SizedBox(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-          child: SingleChildScrollView(
-            controller: controller.scrollController,
-            physics: const BouncingScrollPhysics(),
-            child: Container(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Assalamualaikum,',
-                    style: h3(),
-                  ),
-                  const SizedBox(height: 4),
-                  Obx(() {
-                    if (controller.currentTime >= 11) {
-                      return Text(
-                        "Good Afternoon 🌞",
-                        style: h4(),
-                      );
-                    } else if (controller.currentTime > 11 &&
-                        controller.currentTime >= 16) {
-                      return Text(
-                        "Good Evening 🌆",
-                        style: h4(),
-                      );
-                    } else if (controller.currentTime > 11 &&
-                        controller.currentTime >= 20) {
-                      return Text(
-                        "Good Night 🌙",
-                        style: h4(),
-                      );
-                    } else if (controller.currentTime < 11) {
-                      return Text(
-                        "Good Morning ☀️",
-                        style: h4(),
-                      );
-                    } else {
-                      return const SizedBox.shrink();
-                    }
-                  }),                
-                  const SizedBox(height: 12),
-                  Obx(() {
-                    if (controller.surahLoading == true) {
-                      return Builder(
-                        builder: (context) {
-                          return Column(
-                            children: List.generate(5, (index) => const SkeletonLoader()),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        extendBodyBehindAppBar: true,
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          titleSpacing: 0,
+          elevation: 0,
+          backgroundColor: Colors.transparent,
+          title: Image.asset(
+            'assets/img/logo_horizontal.png',
+            height: 40,
+            width: 200,
+          ), 
+          actions: [
+            Obx(() => controller.enableSearchBar == false ? InkWell(
+              onTap: () {
+                controller.enableSearchBar = !controller.enableSearchBar;
+              },
+              child: const Icon(
+                Icons.search,
+                size: 25,
+              ),
+            ) : InkWell(
+              onTap: () {
+                controller.enableSearchBar = !controller.enableSearchBar;
+              },
+              child: const Icon(
+                Icons.clear,
+                size: 25,
+              ),
+            )),
+            const SizedBox(width: 12),
+            controller.firebaseAuth.currentUser != null ? InkWell(
+              onTap: () async {
+                await controller.firebaseAuth.signOut().then((value) => 
+                  Get.offAllNamed(LoginScreenViewRoute)
+                );
+              },
+              child: const Icon(
+                Icons.logout,
+                size: 25,
+              ),
+            ) : const SizedBox.shrink()
+          ],
+        ),
+        body: SafeArea(
+          child: Stack(
+            children: [
+            Container(
+              margin: const EdgeInsets.only(top: 15),
+              padding: const EdgeInsets.only(left: 8, right: 8),
+              child: SearchBar(
+                textController: controller.searchController, 
+                onChanged: (value) {
+                  controller.runFilter(value);
+                }, 
+                onTap: () {
+                  controller.searchController.clear();
+                }
+              ),
+            ),
+            Obx(() => Container(
+              margin: controller.enableSearchBar == false ? const EdgeInsets.only(top: 0) :
+                  const EdgeInsets.only(top: 70),
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(32),
+                  topRight: Radius.circular(32)
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.1),
+                    spreadRadius: 5,
+                    blurRadius: 7,
+                    offset: const Offset(0, 3)
+                  )
+                ]
+              ),
+              child: SingleChildScrollView(
+                controller: controller.scrollController,
+                physics: const BouncingScrollPhysics(),
+                child: Container(
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      controller.firebaseAuth.currentUser != null ? Text(
+                        'Assalamualaikum,',
+                        style: GoogleFonts.lato(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold
+                        )
+                      ) : const SizedBox.shrink(),
+                      const SizedBox(height: 4),
+                      controller.firebaseAuth.currentUser != null ? Text(
+                        controller.firebaseAuth.currentUser!.displayName!,
+                        style: GoogleFonts.lato(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold
+                        ),
+                      ) : const SizedBox.shrink(),               
+                      controller.firebaseAuth.currentUser != null ? 
+                          const SizedBox(height: 30) : const SizedBox.shrink(),
+                      Obx(() {
+                        if (controller.surahLoading == true) {
+                          return Builder(
+                            builder: (context) {
+                              return Column(
+                                children: List.generate(5, (index) => const SkeletonLoader()),
+                              );
+                            },
                           );
-                        },
-                      );
-                    } else {
-                      if (controller.searchController.text.isEmpty) {
-                        return Builder(
-                          builder: (context) {
-                            SurahResponse? surah = controller.surahData;
-                            return Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: List.generate(surah!.data.length, (index) => 
+                        } else {
+                          if (controller.searchController.text.isEmpty) {
+                            return Builder(
+                              builder: (context) {
+                                SurahResponse? surah = controller.surahData;
+                                return Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: List.generate(surah!.data.length, (index) => 
+                                      InkWell(
+                                        onTap: () {
+                                          surahContentController.currentSurahNumber = 
+                                              surah.data[index].nomor;
+                                          surahContentController.getSurahContent();
+                                          Get.toNamed(SurahContentViewRoute);
+                                        },
+                                      child: Container(
+                                        padding: const EdgeInsets.all(8),
+                                        margin: const EdgeInsets.only(bottom: 8),
+                                        width: MediaQuery.of(context).size.width,
+                                        height: MediaQuery.of(context).size.height / 9,
+                                        child: Column(
+                                          children: [
+                                            Row(
+                                              children: [
+                                                Expanded(
+                                                  flex: 1,
+                                                  child: Text(
+                                                    surah.data[index].nomor.toString(),
+                                                    style: GoogleFonts.lato(
+                                                      fontSize: 16
+                                                    )
+                                                  ),
+                                                ),
+                                                Expanded(
+                                                  flex: 3,
+                                                  child: Column(
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    children: [
+                                                      Text(
+                                                        surah.data[index].namaLatin,
+                                                        style: GoogleFonts.lato(
+                                                          fontSize: 16,
+                                                          fontWeight: FontWeight.bold
+                                                        )
+                                                      ),
+                                                      const SizedBox(height: 12),
+                                                      Text(
+                                                        surah.data[index].tempatTurun.capitalizeFirstLetter(),
+                                                        style: GoogleFonts.lato(
+                                                          fontSize: 14
+                                                        )
+                                                      )
+                                                    ],
+                                                  ),
+                                                ),
+                                                Expanded(
+                                                  flex: 2,
+                                                  child: Text(
+                                                    surah.data[index].nama,
+                                                    style: GoogleFonts.lato(
+                                                      fontSize: 25,
+                                                      fontWeight: FontWeight.bold,
+                                                    ),
+                                                    textAlign: TextAlign.right,
+                                                  )
+                                                )
+                                              ],
+                                            ),
+                                            const SizedBox(height: 18),
+                                            const ContentDivider()
+                                          ],
+                                        ),
+                                      ),
+                                    )
+                                  ),
+                                );
+                              },
+                            );
+                          } else if (controller.surahList.isEmpty) {
+          
+                          } else {
+                            return Builder(
+                              builder: (context) {
+                                return Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: List.generate(controller.surahList.length, (index) => 
                                   InkWell(
                                     onTap: () {
                                       surahContentController.currentSurahNumber = 
-                                          surah.data[index].nomor;
+                                        controller.surahList[index].nomor;
                                       surahContentController.getSurahContent();
                                       Get.toNamed(SurahContentViewRoute);
                                     },
-                                  child: Container(
-                                    padding: const EdgeInsets.all(8),
-                                    margin: const EdgeInsets.only(bottom: 8),
-                                    width: MediaQuery.of(context).size.width,
-                                    height: MediaQuery.of(context).size.height / 9,
-                                    child: Column(
-                                      children: [
-                                        Row(
-                                          children: [
-                                            Expanded(
-                                              flex: 1,
-                                              child: Text(
-                                                surah.data[index].nomor.toString(),
-                                                style: GoogleFonts.lato(
-                                                  fontSize: 16
-                                                )
-                                              ),
-                                            ),
-                                            Expanded(
-                                              flex: 3,
-                                              child: Column(
-                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    surah.data[index].namaLatin,
-                                                    style: GoogleFonts.lato(
-                                                      fontSize: 16,
-                                                      fontWeight: FontWeight.bold
-                                                    )
-                                                  ),
-                                                  const SizedBox(height: 12),
-                                                  Text(
-                                                    surah.data[index].tempatTurun.capitalizeFirstLetter(),
-                                                    style: GoogleFonts.lato(
-                                                      fontSize: 14
-                                                    )
-                                                  )
-                                                ],
-                                              ),
-                                            ),
-                                            Expanded(
-                                              flex: 2,
-                                              child: Text(
-                                                surah.data[index].nama,
-                                                style: GoogleFonts.lato(
-                                                  fontSize: 25,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                                textAlign: TextAlign.right,
-                                              )
-                                            )
-                                          ],
-                                        ),
-                                        const SizedBox(height: 18),
-                                        const ContentDivider()
-                                      ],
-                                    ),
-                                  ),
-                                )
-                              ),
-                            );
-                          },
-                        );
-                      } else if (controller.surahList.isEmpty) {
-
-                      } else {
-                        return Builder(
-                          builder: (context) {
-                            return Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: List.generate(controller.surahList.length, (index) => 
-                              InkWell(
-                                onTap: () {
-                                  surahContentController.currentSurahNumber = 
-                                    controller.surahList[index].nomor;
-                                  surahContentController.getSurahContent();
-                                  Get.toNamed(SurahContentViewRoute);
-                                },
-                                child: Container(
-                                  padding: const EdgeInsets.all(8),
-                                  margin: const EdgeInsets.only(bottom: 8),
-                                  width: MediaQuery.of(context).size.width,
-                                  height: MediaQuery.of(context).size.height / 9,
-                                  child: Column(
-                                    children: [
-                                      Row(
+                                    child: Container(
+                                      padding: const EdgeInsets.all(8),
+                                      margin: const EdgeInsets.only(bottom: 8),
+                                      width: MediaQuery.of(context).size.width,
+                                      height: MediaQuery.of(context).size.height / 9,
+                                      child: Column(
                                         children: [
-                                          Expanded(
-                                            flex: 1,
-                                            child: Text(
-                                              controller.surahList[index].nomor.toString(),
-                                              style: GoogleFonts.lato(
-                                                fontSize: 16
-                                              )
-                                            ),
-                                          ),
-                                          Expanded(
-                                            flex: 3,
-                                            child: Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  controller.surahList[index].namaLatin,
+                                          Row(
+                                            children: [
+                                              Expanded(
+                                                flex: 1,
+                                                child: Text(
+                                                  controller.surahList[index].nomor.toString(),
                                                   style: GoogleFonts.lato(
-                                                    fontSize: 16,
-                                                    fontWeight: FontWeight.bold
+                                                    fontSize: 16
                                                   )
                                                 ),
-                                                const SizedBox(height: 12),
-                                                Text(
-                                                  controller.surahList[index].tempatTurun.capitalizeFirstLetter(),
-                                                  style: GoogleFonts.lato(
-                                                    fontSize: 14
-                                                  )
-                                                )                                          
-                                              ],
-                                            ),
-                                          ),
-                                          Expanded(
-                                            flex: 2,
-                                            child: Text(
-                                              controller.surahList[index].nama,
-                                              style: GoogleFonts.lato(
-                                                fontSize: 25,
-                                                fontWeight: FontWeight.bold,
                                               ),
-                                              textAlign: TextAlign.right,
-                                            )
-                                          )
+                                              Expanded(
+                                                flex: 3,
+                                                child: Column(
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      controller.surahList[index].namaLatin,
+                                                      style: GoogleFonts.lato(
+                                                        fontSize: 16,
+                                                        fontWeight: FontWeight.bold
+                                                      )
+                                                    ),
+                                                    const SizedBox(height: 12),
+                                                    Text(
+                                                      controller.surahList[index].tempatTurun.capitalizeFirstLetter(),
+                                                      style: GoogleFonts.lato(
+                                                        fontSize: 14
+                                                      )
+                                                    )                                          
+                                                  ],
+                                                ),
+                                              ),
+                                              Expanded(
+                                                flex: 2,
+                                                child: Text(
+                                                  controller.surahList[index].nama,
+                                                  style: GoogleFonts.lato(
+                                                    fontSize: 25,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                  textAlign: TextAlign.right,
+                                                )
+                                              )
+                                            ],
+                                          ),
+                                          const SizedBox(height: 18),
+                                          const ContentDivider()
                                         ],
                                       ),
-                                      const SizedBox(height: 18),
-                                      const ContentDivider()
-                                    ],
-                                  ),
+                                    ),
+                                  )
                                 ),
-                              )
-                            ),
-                          );
-                        });
-                      }
-                      return const SizedBox.shrink();
-                    }
-                  })
-                ],
+                              );
+                            });
+                          }
+                          return const SizedBox.shrink();
+                        }
+                      })
+                    ],
+                  ),
+                ),
               ),
-            ),
-          ),
+            )),
+          ]),
         ),
       ),
     );

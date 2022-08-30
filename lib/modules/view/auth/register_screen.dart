@@ -1,6 +1,7 @@
 import 'package:alquranapp/core/values/colors.dart';
 import 'package:alquranapp/modules/controller/auth/register_controller.dart';
 import 'package:alquranapp/modules/widget/authentication_button.dart';
+import 'package:alquranapp/modules/widget/primary_button_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -28,6 +29,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
       ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
+        bottomNavigationBar: Container(
+          decoration: const BoxDecoration(
+            color: paleBlueLight
+          ),
+          child: PrimaryButtonBottomNavigationBar(
+            onPressed: () {
+              controller.signup(context);
+            },
+            title: 'Register'
+          ),
+        ),
         body: SafeArea(
           child: SingleChildScrollView(
             physics: const NeverScrollableScrollPhysics(),
@@ -151,14 +163,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 return "Password harus memiliki minimal 8 karakter";
                               }
                             },
-                          )),
-                          const SizedBox(height: 12),
-                          AuthenticationButton(
-                            onPressed: () {
-                              controller.signup(context);
-                            }, 
-                            buttonText: 'Register'
-                          )
+                          ))
                         ],
                       ),
                     ),
