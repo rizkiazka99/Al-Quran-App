@@ -1,9 +1,9 @@
-import 'package:alquranapp/data/backend/firebase.dart';
+import 'package:alquranapp/modules/widget/custom_snackbar.dart';
 import 'package:alquranapp/router/router_page.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class RegisterController extends GetxController {
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
@@ -44,6 +44,17 @@ class RegisterController extends GetxController {
     isConfirmedPasswordNotVisible = !isConfirmedPasswordNotVisible;
   }
 
+  Future<void> userSetup(String name, String email) async {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    String uid = auth.currentUser!.uid.toString();
+    CollectionReference users = FirebaseFirestore.instance.collection('users');
+  
+    users.doc(uid).collection('personal_info').add({
+      'name' : name,
+      'email' : email
+    });
+  }
+
   signup(BuildContext context) async {
     try {
       final isNameValid = nameFormKey.currentState!.validate();
@@ -59,7 +70,7 @@ class RegisterController extends GetxController {
           User? updateUser = firebaseAuth.currentUser;
           updateUser!.updateDisplayName(nameController.text);
           userSetup(nameController.text, emailController.text);
-          Get.offAllNamed(LoginScreenViewRoute);
+          Get.offAllNamed(EmailVerificationViewRoute);
         });
       } else if (!isNameValid) {
         autoValidateName = AutovalidateMode.always;
@@ -94,43 +105,7 @@ class RegisterController extends GetxController {
           errorMessage = "Sign up failed. Please try again.";
           break;
       }
-      return showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: Text(
-              'Ups!',
-              style: GoogleFonts.lato(
-                fontSize: 18,
-                fontWeight: FontWeight.bold
-              ),
-            ),
-            content: Text(
-              errorMessage,
-              style: GoogleFonts.lato(
-                fontSize: 16,
-              ),
-              textAlign: TextAlign.center,
-            ),
-            actions: [
-              ElevatedButton(
-                onPressed: () {
-                  Get.back();
-                },
-                child: Center(
-                  child: Text(
-                    'Kembali',
-                    style: GoogleFonts.lato(
-                      fontSize: 20, 
-                      fontWeight: FontWeight.bold
-                    ),
-                  ),
-                )
-              )
-            ],
-          );
-        }
-      );      
+      return customSnackbar('Ups!', errorMessage);     
     }
   }
 }

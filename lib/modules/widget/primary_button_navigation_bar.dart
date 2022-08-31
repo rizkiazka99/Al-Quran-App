@@ -21,7 +21,7 @@ class PrimaryButtonBottomNavigationBar extends StatelessWidget {
         child: FloatingActionButton.extended(
           materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
           backgroundColor:
-              onPressed == null ? backgroundColorPrimary : Colors.lightGreen,
+              onPressed == null ? backgroundColorPrimary : Colors.green,
           label: Text(
             title,
             style: buttonMd(

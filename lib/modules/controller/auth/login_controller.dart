@@ -1,3 +1,4 @@
+import 'package:alquranapp/modules/widget/custom_snackbar.dart';
 import 'package:alquranapp/router/router_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -67,43 +68,7 @@ class LoginController extends GetxController {
           errorMessage = "Login gagal, mohon coba lagi";
           break;
       }
-      return showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: Text(
-              'Ups!',
-              style: GoogleFonts.lato(
-                fontSize: 18,
-                fontWeight: FontWeight.bold
-              ),
-            ),
-            content: Text(
-              errorMessage,
-              style: GoogleFonts.lato(
-                fontSize: 16,
-              ),
-              textAlign: TextAlign.center,
-            ),
-            actions: [
-              ElevatedButton(
-                onPressed: () {
-                  Get.back();
-                },
-                child: Center(
-                  child: Text(
-                    'Kembali',
-                    style: GoogleFonts.lato(
-                      fontSize: 20, 
-                      fontWeight: FontWeight.bold
-                    ),
-                  ),
-                )
-              )
-            ],
-          );
-        }
-      );
+      return customSnackbar('Ups!', errorMessage);
     }  
   }
 }

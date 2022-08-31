@@ -1,17 +1,40 @@
 import 'package:alquranapp/core/utils/capitalize_first_letter.dart';
 import 'package:alquranapp/core/values/colors.dart';
-import 'package:alquranapp/core/values/fonts.dart';
 import 'package:alquranapp/data/models/new_api/surah_response.dart';
 import 'package:alquranapp/modules/controller/content/home_controller.dart';
 import 'package:alquranapp/modules/controller/content/surah_content_controller.dart';
+import 'package:alquranapp/modules/view/auth/email_verification_screen.dart';
+import 'package:alquranapp/modules/view/auth/register_screen.dart';
 import 'package:alquranapp/modules/widget/content_divider.dart';
 import 'package:alquranapp/modules/widget/search_bar.dart';
 import 'package:alquranapp/modules/widget/skeleton_loader.dart';
 import 'package:alquranapp/router/router_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+
+class MainPage extends StatelessWidget {
+  MainPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    
+    return Scaffold(
+      body: StreamBuilder<User?>(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return const EmailVerificationScreen();
+          } else {
+            return const RegisterScreen();
+          }
+        },
+      ),
+    );
+  }
+}
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
