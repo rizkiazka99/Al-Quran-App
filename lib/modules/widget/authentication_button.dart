@@ -37,12 +37,14 @@ class AuthenticationTextButton extends StatelessWidget {
   final void Function() onTap;
   final String buttonText;
   Color? buttonColor;
+  double fontSize;
 
   AuthenticationTextButton({
     Key? key, 
     required this.onTap, 
     required this.buttonText,
-    this.buttonColor
+    this.buttonColor,
+    this.fontSize = 15 
   }) : super(key: key);
 
   @override
@@ -53,7 +55,7 @@ class AuthenticationTextButton extends StatelessWidget {
         child: Text(
           buttonText,
           style: GoogleFonts.lato(
-              fontSize: 15, 
+              fontSize: fontSize, 
               fontWeight: FontWeight.bold,
               color: buttonColor
             ),

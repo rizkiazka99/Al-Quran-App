@@ -53,7 +53,8 @@ class AppPages {
       page: () => MainPage(),
       bindings: [
         EmailVerificationBinding(),
-        HomeBinding()
+        HomeBinding(),
+        RegisterBinding()
       ]
     ),
   ];

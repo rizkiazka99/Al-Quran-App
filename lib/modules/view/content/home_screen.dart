@@ -16,11 +16,10 @@ import 'package:google_fonts/google_fonts.dart';
 
 
 class MainPage extends StatelessWidget {
-  MainPage({Key? key}) : super(key: key);
+  const MainPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       body: StreamBuilder<User?>(
         stream: FirebaseAuth.instance.authStateChanges(),
@@ -83,15 +82,15 @@ class _HomeScreenState extends State<HomeScreen> {
                 controller.enableSearchBar = !controller.enableSearchBar;
               },
               child: const Icon(
-                Icons.clear,
-                size: 25,
+                Icons.arrow_back_ios,
+                size: 20,
               ),
             )),
             const SizedBox(width: 12),
             controller.firebaseAuth.currentUser != null ? InkWell(
               onTap: () async {
                 await controller.firebaseAuth.signOut().then((value) => 
-                  Get.offAllNamed(LoginScreenViewRoute)
+                  Get.offAllNamed(SplashScreenViewRoute)
                 );
               },
               child: const Icon(

@@ -22,7 +22,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Timer(
       const Duration(seconds: 3), () {
         if (firebaseAuth.currentUser != null) {
-          Get.offNamed(HomeScreenViewRoute);
+          Get.offNamed(MainPageViewRoute);
         } else {
           Get.offNamed(LoginScreenViewRoute);
         }
