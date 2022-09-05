@@ -51,7 +51,7 @@ class EmailVerificationController extends GetxController {
       await user.sendEmailVerification();
 
       canResendEmail = false;
-      await Future.delayed(Duration(seconds: remainingWaitingTime));
+      await Future.delayed(const Duration(seconds: 30));
       canResendEmail = true;
     } catch(error) {
       customSnackbar('Terjadi Kesalahan!', error.toString());

@@ -91,12 +91,14 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                         onPressed: () {
                           if (controller.canResendEmail == true) {
                             controller.sendVerificationEmail();
+                            print('canResendEmail: ${controller.canResendEmail}');
                             customSnackbar('Sukses!', 'E-mail verifikasi telah dikirim ulang');
                           } else {
-                            Obx(() => customSnackbar(
+                            print('canResendEmail: ${controller.canResendEmail}');
+                            customSnackbar(
                               'Ups!', 
-                              'Mohon tunggu ${controller.remainingWaitingTime} detik sebelum meminta pengiriman ulang e-mail verifikasi'
-                            ));
+                              'Mohon tunggu 30 detik sebelum meminta pengiriman ulang e-mail verifikasi'
+                            );
                           }
                         }, 
                         buttonText: 'Kirim Ulang'
